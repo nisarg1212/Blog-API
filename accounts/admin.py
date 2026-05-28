@@ -14,6 +14,12 @@ class CustomUserAdmin(UserAdmin):
                     'is_staff', 
                     ]
     fieldsets = UserAdmin.fieldsets + ((None, {'fields': ('name',)}),)
-    add_fieldsets = UserAdmin.add_fieldsets + ((None, {'fields': ('name',)}),)
+    # Redefine add_fieldsets entirely to remove 'usable_password'
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username', 'name', 'password1', 'password2'),
+        }),
+    )
 
 admin.site.register(CustomUser, CustomUserAdmin)
